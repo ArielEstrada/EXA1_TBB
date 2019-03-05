@@ -1,0 +1,82 @@
+create database Exa_BaseUno;
+
+ 		create table Customers( 
+				No_ID int key auto_increment,
+				Customer_ID varchar(20) not null, 
+				Customer_Name varchar(50) not null, 
+				Segment enum('Consumer','Corporate','Home Office'),
+                                country varchar(30),
+                                city varchar(30),
+                                State varchar(30),
+                                Postal_Code int,
+                                Region enum('South','West','Central','North','East'));
+
+
+		 create table Products(
+					     No_ID varchar(10) key,
+                                             Product_ID varchar(50),
+                                             Category varchar(30) not null,
+                                             Sub_Category varchar(30),
+                                             Product_Name varchar(100));
+                                            
+ 		create table Orders(
+                                            -> Order_ID varchar(50) key,
+                                            -> Order_Date int,
+                                            -> Ship_Date int,
+                                            -> Ship_Mode enum('Standard Class','Second Class','First Class'));
+
+
+		 Create table CustoProd(
+                                        Row_ID int key not null unique auto_increment,
+                                        Order_ID varchar(50),
+                                        Customer_ID varchar(20),
+                                        No_ID varchar(50),
+					Sales double,
+                                        Quantity int,
+                                        Discount double,
+                                        Profit double);
+
+
+
+Llaves foraneas
+Alter table custoprod add foreign key(Order_ID) references orders(Order_ID);
+Alter table custoprod add foreign key(Customer_ID) references customers(Customer_ID);
+Alter table custoprod add foreign key(No_ID) references products(No_ID);
+
+
+
+
+
+C:/ProgramData/MySQL/MySQL Server 8.0/Uploads
+
+load data infile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Customer.csv' 
+into table customers fields terminated by ','optionally enclosed by '"' lines terminated by '\r\n';
+
+
+
+
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'xxx.123';
+CREATE USER 'user2'@'localhost' IDENTIFIED BY 'xxx.123';
+CREATE USER 'user3'@'localhost' IDENTIFIED BY 'xxx.123';
+CREATE USER 'user4'@'localhost' IDENTIFIED BY 'xxx.123';
+CREATE USER 'user5'@'localhost' IDENTIFIED BY 'xxx.123';
+
+GRANT DELETE ON exa_baseuno.customers TO ‘user1’@'localhost’;
+GRANT INSERT ON exa_baseuno.products TO user2@localhost;
+GRANT SELECT ON exa_baseuno.products TO ‘user3’@'localhost’;
+GRANT SELECT,INSERT ON exa_baseuno.orders TO ‘user4’@'localhost’;
+GRANT all ON exa_baseuno.* TO ‘user5’@'localhost’;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
